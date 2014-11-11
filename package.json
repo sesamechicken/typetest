@@ -1,0 +1,14 @@
+{
+  "name": "grunt-strap-boilerplate",
+  "version": "1.0.0",
+  "dependencies": {
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-watch": "latest"
+  },
+  "devDependencies": {
+    "grunt-uncss": "^0.3.6"
+  }
+}
