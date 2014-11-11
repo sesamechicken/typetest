@@ -2,6 +2,7 @@
 typetest.js
 11.11.2014 - cmd.
 */
+var wrapper_css = "posiiton"
 var overlay_css = "background-color: #fff;padding: 1em;box-shadow: 0 1px 12px #666;width: 210px;font-family: serif;word-break: break-all;border-radius: 2px;";
 var overlay = "<div style='"+ overlay_css +"'><b>typetest</b><br><input style='padding:4px;border:1px solid #d3d3d3;' type='text' id='font_url' placeholder='webfont url'> <button type='button' onclick='tt_loadFont()'>Load</button><div><code id='typetest_url'></code></div></div>";
 var typetest_init = false;
@@ -16,6 +17,7 @@ function typetest(){
     wrapper.style.position = "fixed";
     wrapper.style.top = 0;
     wrapper.style.right = 0;
+    wrapper.style.zIndex = 999999;
     wrapper.innerHTML = overlay;
     document.body.insertBefore(wrapper, document.body.firstChild);
     var code = document.getElementById("typetest_url");
