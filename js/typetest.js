@@ -6,11 +6,14 @@ var overlay_css = "background-color: #fff;padding: 1em;box-shadow: 0 1px 12px #6
 var overlay = "<div style='"+ overlay_css +"'><b>typetest</b><br><input style='padding:4px;border:1px solid #d3d3d3;' type='text' id='font_url' placeholder='webfont url'> <button type='button' onclick='tt_loadFont()'>Load</button><div><code id='typetest_url'></code></div></div>";
 var typetest_init = false;
 var tt_visible = false;
+var new_link, new_style;
+
 function typetest(){
   if(typetest_init){
     tt_toggle();
   }
   else{
+    // UI
     var wrapper = document.createElement('div');
     wrapper.id = "typetest_wrapper";
     wrapper.style.position = "fixed";
@@ -24,6 +27,16 @@ function typetest(){
     code.innerHTML = "Font URL: none";
     typetest_init = true;
     tt_visible = true;
+    // Creation code
+    new_link = document.createElement("link");
+    new_link.href = "";
+    new_link.id = "new_link";
+    new_link.rel = "stylesheet";
+    new_style = document.createElement("style");
+    new_style.id = "new_style";
+      // Insert into DOM
+    document.head.insertBefore(new_link, document.head.lastChild);
+    document.head.insertBefore(new_style, document.head.lastChild);
   }
 }
 function tt_toggle(){
@@ -42,33 +55,20 @@ function tt_loadFont(){
   var font_url = document.getElementById("font_url").value.trim();
   // reset text box
   document.getElementById("font_url").value = "";
-  var new_link = document.createElement("link");
-  new_link.href = font_url;
-  new_link.id = "new_link";
-  new_link.rel = "stylesheet";
-
+  
   //Get probable font name
   var fontName = font_url.substr(font_url.indexOf('=')+1);
   fontName = fontName.replace(/\+/g, ' ');
-
-  var new_style = document.createElement("style");
-  new_style.id = "new_style";
-  var injectClass = "body{font-family: '"+ fontName +"'}";
-  new_style.innerHTML = injectClass;
 
   // Clean up
   var old_link = document.getElementById('new_link');
   var old_style = document.getElementById('new_style');
 
-  if(old_link || old_style){
-    old_link.outerHTML = "";
-    old_style.outerHTML = "";
-    delete old_link;
-    delete old_style;
-  }
-  // Insert into DOM
-  document.head.insertBefore(new_link, document.head.lastChild);
-  document.head.insertBefore(new_style, document.head.lastChild);
+  // Do this by attr, not recreating the same elements
+  old_link.setAttribute('href', font_url);
+  var injectClass = "body{font-family:'"+ fontName +"'}";
+  old_style.innerHTML = injectClass;
+
   if(!font_url){
     font_url = "Font URL: none";
   }
