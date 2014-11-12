@@ -29,7 +29,7 @@ function typetest(){
     tt_visible = true;
     // Creation code
     new_link = document.createElement("link");
-    new_link.href = font_url;
+    new_link.href = "";
     new_link.id = "new_link";
     new_link.rel = "stylesheet";
     new_style = document.createElement("style");
